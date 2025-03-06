@@ -32,7 +32,7 @@ public class WeatherService {
             case "Snow" -> "img/snow.webp";
             case "Thunderstorm" -> "img/thunderstorm.webp";
             case "Mist" -> "img/mist.webp";
-            default -> "img/main.webp";
+            default -> "img/base.webp";
         };
     }
 

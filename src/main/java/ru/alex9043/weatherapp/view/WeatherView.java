@@ -15,7 +15,7 @@ import ru.alex9043.weatherapp.model.Weather;
 import ru.alex9043.weatherapp.service.WeatherService;
 
 @Route("/")
-@CssImport("/styles.css")
+@CssImport("./styles.css")
 public class WeatherView extends VerticalLayout {
     private final WeatherService service;
     private final Div container = new Div();

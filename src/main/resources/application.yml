@@ -1,0 +1,22 @@
+vaadin:
+  launch-browser: false
+spring:
+  application:
+    name: WeatherApp
+  h2:
+    console:
+      enabled: ${SPRING_H2_CONSOLE_ENABLED}
+  datasource:
+    url: ${SPRING_DATA_SOURCE_URL}
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+openweather:
+  api:
+    key: ${OPENWEATHER_API_KEY}
+
+server:
+  port: 8080
