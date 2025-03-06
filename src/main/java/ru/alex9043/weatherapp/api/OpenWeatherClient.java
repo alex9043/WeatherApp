@@ -14,7 +14,7 @@ public class OpenWeatherClient {
     private String apiKey;
 
     public WeatherResponse getWeather(double latitude, double longitude) {
-        String url = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s", latitude, longitude, apiKey);
+        String url = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&lang=ru&units=metric", latitude, longitude, apiKey);
         return restTemplate.getForObject(url, WeatherResponse.class);
     }
 }

@@ -13,4 +13,16 @@ public class WeatherService {
     public WeatherResponse getWeather(Double latitude, Double longitude) {
         return client.getWeather(latitude, longitude);
     }
+
+    public String getImagePath(String main) {
+        return switch (main) {
+            case "Clear" -> "img/clear.webp";
+            case "Clouds" -> "img/clouds.webp";
+            case "Rain" -> "img/rain.webp";
+            case "Snow" -> "img/snow.webp";
+            case "Thunderstorm" -> "img/thunderstorm.webp";
+            case "Mist" -> "img/mist.webp";
+            default -> "img/base.webp";
+        };
+    }
 }

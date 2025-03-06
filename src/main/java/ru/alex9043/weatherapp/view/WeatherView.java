@@ -2,6 +2,7 @@ package ru.alex9043.weatherapp.view;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -18,6 +19,7 @@ public class WeatherView extends VerticalLayout {
     private final Button showButton = new Button("Показать погоду!");
     private final H2 header = new H2();
     private final Paragraph p = new Paragraph();
+    private final Image image = new Image();
 
     public WeatherView(WeatherService service) {
         this.service = service;
@@ -32,11 +34,14 @@ public class WeatherView extends VerticalLayout {
                 WeatherResponse response = service.getWeather(lat, lon);
                 header.setText(response.weather().get(0).description());
                 p.setText(response.main().temp() + " градусов, ощущается как " + response.main().feels_like());
+
+                image.setSrc(service.getImagePath(response.weather().get(0).main()));
+                image.setAlt("Изображение енота");
             } catch (NumberFormatException e) {
                 Notification.show("Введите корректные числа");
             }
         });
 
-        add(latField, lonField, showButton, header, p);
+        add(latField, lonField, showButton, header, p, image);
     }
 }
