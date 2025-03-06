@@ -10,7 +10,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
-import ru.alex9043.weatherapp.dto.WeatherResponse;
+import ru.alex9043.weatherapp.model.Weather;
 import ru.alex9043.weatherapp.service.WeatherService;
 
 @Route("/")
@@ -38,11 +38,11 @@ public class WeatherView extends VerticalLayout {
             try {
                 double lat = Double.parseDouble(latField.getValue());
                 double lon = Double.parseDouble(lonField.getValue());
-                WeatherResponse response = service.getWeather(lat, lon);
-                header.setText(response.weather().get(0).description());
-                p.setText(response.main().temp().intValue() + " градусов, ощущается как " + response.main().feels_like().intValue());
+                Weather weather = service.getWeather(lat, lon);
+                header.setText(weather.getDescription());
+                p.setText(weather.getTemp().intValue() + " градусов, ощущается как " + weather.getFeelsLike().intValue());
 
-                image.setSrc(service.getImagePath(response.weather().get(0).main()));
+                image.setSrc(service.getImagePath(weather.getMain()));
                 image.setAlt("Изображение енота");
             } catch (NumberFormatException e) {
                 Notification.show("Введите корректные числа");
