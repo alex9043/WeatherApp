@@ -1,0 +1,21 @@
+.main-container {
+    display: flex;
+    margin: 0 auto;
+}
+
+.fields-container {
+    display: flex;
+}
+
+.lon-field {
+    margin-left: 10px;
+}
+
+.raccoon-image {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.weather-text {
+    font-weight: bold;
+}

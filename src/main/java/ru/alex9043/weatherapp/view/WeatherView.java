@@ -1,6 +1,8 @@
 package ru.alex9043.weatherapp.view;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
@@ -12,8 +14,13 @@ import ru.alex9043.weatherapp.dto.WeatherResponse;
 import ru.alex9043.weatherapp.service.WeatherService;
 
 @Route("/")
+@CssImport("/styles.css")
 public class WeatherView extends VerticalLayout {
     private final WeatherService service;
+    private final Div container = new Div();
+    private final Div dataContainer = new Div();
+    private final Div historyContainer = new Div();
+    private final Div fieldsContainer = new Div();
     private final TextField latField = new TextField("Широта");
     private final TextField lonField = new TextField("Долгота");
     private final Button showButton = new Button("Показать погоду!");
@@ -33,7 +40,7 @@ public class WeatherView extends VerticalLayout {
                 double lon = Double.parseDouble(lonField.getValue());
                 WeatherResponse response = service.getWeather(lat, lon);
                 header.setText(response.weather().get(0).description());
-                p.setText(response.main().temp() + " градусов, ощущается как " + response.main().feels_like());
+                p.setText(response.main().temp().intValue() + " градусов, ощущается как " + response.main().feels_like().intValue());
 
                 image.setSrc(service.getImagePath(response.weather().get(0).main()));
                 image.setAlt("Изображение енота");
@@ -41,7 +48,21 @@ public class WeatherView extends VerticalLayout {
                 Notification.show("Введите корректные числа");
             }
         });
+        lonField.addClassName("lon-field");
 
-        add(latField, lonField, showButton, header, p, image);
+        image.setClassName("raccoon-image");
+
+        p.setClassName("weather-text");
+
+        fieldsContainer.add(latField, lonField);
+        fieldsContainer.addClassName("fields-container");
+
+        dataContainer.add(fieldsContainer, showButton, header, p, image);
+        dataContainer.addClassName("data-container");
+
+        container.add(dataContainer, historyContainer);
+        container.addClassName("main-container");
+
+        add(container);
     }
 }
