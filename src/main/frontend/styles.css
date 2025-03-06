@@ -1,10 +1,12 @@
 .main-container {
     display: flex;
+    width: 80%;
     margin: 0 auto;
 }
 
 .fields-container {
     display: flex;
+    width: 50%;
 }
 
 .lon-field {
@@ -18,4 +20,13 @@
 
 .weather-text {
     font-weight: bold;
+}
+
+.history-container {
+    width: 50%;
+}
+
+.history {
+    height: 300px;
+    width: 100%;
 }

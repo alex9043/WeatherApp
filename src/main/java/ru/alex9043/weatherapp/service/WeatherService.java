@@ -8,6 +8,10 @@ import ru.alex9043.weatherapp.mapper.WeatherMapper;
 import ru.alex9043.weatherapp.model.Weather;
 import ru.alex9043.weatherapp.repository.WeatherRepository;
 
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -28,7 +32,16 @@ public class WeatherService {
             case "Snow" -> "img/snow.webp";
             case "Thunderstorm" -> "img/thunderstorm.webp";
             case "Mist" -> "img/mist.webp";
-            default -> "img/base.webp";
+            default -> "img/main.webp";
         };
+    }
+
+    public List<String> getHistory() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return repository.findAll().stream()
+                .map(w -> formatter.format(w.getDate()) +
+                        " | широта: " + w.getLatitude() + ", долгота: " + w.getLongitude() +
+                        " | ответ: " + w.getDescription())
+                .collect(Collectors.toList());
     }
 }

@@ -2,6 +2,7 @@ package ru.alex9043.weatherapp.view;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
@@ -27,6 +28,7 @@ public class WeatherView extends VerticalLayout {
     private final H2 header = new H2();
     private final Paragraph p = new Paragraph();
     private final Image image = new Image();
+    private final Grid<String> history = new Grid<>(String.class);
 
     public WeatherView(WeatherService service) {
         this.service = service;
@@ -44,6 +46,8 @@ public class WeatherView extends VerticalLayout {
 
                 image.setSrc(service.getImagePath(weather.getMain()));
                 image.setAlt("Изображение енота");
+
+                history.setItems(service.getHistory());
             } catch (NumberFormatException e) {
                 Notification.show("Введите корректные числа");
             }
@@ -59,6 +63,14 @@ public class WeatherView extends VerticalLayout {
 
         dataContainer.add(fieldsContainer, showButton, header, p, image);
         dataContainer.addClassName("data-container");
+
+        history.removeAllColumns();
+        history.addColumn(item -> item).setHeader("История");
+        history.setClassName("history");
+
+        historyContainer.addClassName("history-container");
+
+        historyContainer.add(history);
 
         container.add(dataContainer, historyContainer);
         container.addClassName("main-container");
